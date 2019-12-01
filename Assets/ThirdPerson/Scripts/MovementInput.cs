@@ -38,7 +38,10 @@ public class MovementInput : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		anim = this.GetComponent<Animator> ();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        anim = this.GetComponent<Animator> ();
 		cam = Camera.main;
 		controller = this.GetComponent<CharacterController> ();
         
