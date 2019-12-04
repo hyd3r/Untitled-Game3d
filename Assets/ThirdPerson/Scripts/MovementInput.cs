@@ -6,20 +6,26 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class MovementInput : MonoBehaviour {
 
-    public float velocity = 9;
+    public float velocity = 9f;
+    public float jumpForce = 10f;
+    public float gravity = 1f;
+    public Transform groundCheck;
+    public float groundDistance=0.4f;
+    public LayerMask groundLayer;
+    public bool isGrounded;
     [Space]
 
-	public float InputX;
-	public float InputZ;
-	public Vector3 desiredMoveDirection;
+	private float InputX;
+    private float InputZ;
+    private Vector3 desiredMoveDirection;
 	public bool blockRotationPlayer;
 	public float desiredRotationSpeed = 0.1f;
 	public Animator anim;
-	public float Speed;
+    private float Speed;
 	public float allowPlayerRotation = 0.1f;
-	public Camera cam;
-	public CharacterController controller;
-	public bool isGrounded;
+    private Camera cam;
+    private CharacterController controller;
+
 
     [Header("Animation Smoothing")]
     [Range(0, 1f)]
@@ -54,15 +60,21 @@ public class MovementInput : MonoBehaviour {
             return;
 
         InputMagnitude ();
-
-		isGrounded = controller.isGrounded;
-		if (isGrounded) {
-			verticalVel -= 0;
-		} else {
-			verticalVel -= .05f * Time.deltaTime;
-		}
-		moveVector = new Vector3 (0, verticalVel, 0);
-		controller.Move (moveVector);
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
+        if (isGrounded&& moveVector.y<0)
+        {
+            moveVector.y = -1f;
+        }
+        if (Input.GetButtonDown("Jump")&&isGrounded)
+        {
+            moveVector.y = jumpForce;
+            anim.SetTrigger("jump");
+        }
+        if (!isGrounded)
+        {
+            moveVector.y = moveVector.y + (Physics.gravity.y *gravity* Time.deltaTime);
+        }
+		controller.Move (moveVector*Time.deltaTime);
 
 		
 	}
@@ -127,4 +139,5 @@ public class MovementInput : MonoBehaviour {
 			anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
 		}
 	}
+
 }
