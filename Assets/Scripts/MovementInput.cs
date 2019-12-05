@@ -38,7 +38,6 @@ public class MovementInput : MonoBehaviour {
     public float StopAnimTime = 0.15f;
 
 
-    private float verticalVel;
     private Vector3 moveVector;
     public bool canMove;
 
@@ -56,26 +55,26 @@ public class MovementInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!canMove)
-            return;
-
-        InputMagnitude ();
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
-        if (isGrounded&& moveVector.y<0)
+        if (isGrounded && moveVector.y < 0)
         {
             moveVector.y = -1f;
         }
-        if (Input.GetButtonDown("Jump")&&isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             moveVector.y = jumpForce;
             anim.SetTrigger("jump");
         }
         if (!isGrounded)
         {
-            moveVector.y = moveVector.y + (Physics.gravity.y *gravity* Time.deltaTime);
+            moveVector.y = moveVector.y + (Physics.gravity.y * gravity * Time.deltaTime);
         }
-		controller.Move (moveVector*Time.deltaTime);
+        controller.Move(moveVector * Time.deltaTime);
 
+        if (!canMove)
+            return;
+
+        InputMagnitude ();
 		
 	}
 
@@ -97,8 +96,8 @@ public class MovementInput : MonoBehaviour {
 
 		if (blockRotationPlayer == false) {
 			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-            controller.Move(desiredMoveDirection * Time.deltaTime * velocity);
-		}
+            
+		}controller.Move(desiredMoveDirection * Time.deltaTime * velocity);
 	}
 
 
