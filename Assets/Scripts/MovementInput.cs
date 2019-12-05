@@ -101,23 +101,6 @@ public class MovementInput : MonoBehaviour {
 		}
 	}
 
-    public void RotateToCamera(Transform t)
-    {
-
-        var camera = Camera.main;
-        var forward = cam.transform.forward;
-        var right = cam.transform.right;
-
-        desiredMoveDirection = forward;
-
-        t.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
-    }
-
-    public void RotateTowards(Transform t)
-    {
-        transform.rotation = Quaternion.LookRotation(t.position - transform.position);
-
-    }
 
     void InputMagnitude() {
 		//Calculate Input Vectors
