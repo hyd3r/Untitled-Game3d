@@ -12,6 +12,7 @@ public class AimScript : MonoBehaviour
     public Transform player;
     public Transform cam;
     public GameObject aimReticle;
+    public float aimMoveSpeed = 5f;
     [Space]
     private Animator anim;
     private CharacterController controller;
@@ -64,6 +65,6 @@ public class AimScript : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = player.transform.right * x + transform.forward * z;
-        controller.Move(move * moveInput.velocity*Time.deltaTime);
+        controller.Move(move * aimMoveSpeed * Time.deltaTime);
     }
 }
