@@ -28,11 +28,11 @@ public class AimScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2")&&moveInput.isGrounded)
         {
             AimAnim(true);
         }
-        if(Input.GetButtonUp("Fire2"))
+        if(Input.GetButtonUp("Fire2") || (isAiming&&!moveInput.isGrounded))
         {
             AimAnim(false);
             Vector3 rotationVector = player.rotation.eulerAngles;

@@ -41,7 +41,6 @@ public class MovementInput : MonoBehaviour {
     private Vector3 moveVector;
     public bool canMove;
 
-	// Use this for initialization
 	void Start () {
 
         Cursor.visible = false;
@@ -52,7 +51,6 @@ public class MovementInput : MonoBehaviour {
         
     }
 	
-	// Update is called once per frame
 	void Update () {
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayer);
@@ -60,7 +58,7 @@ public class MovementInput : MonoBehaviour {
         {
             moveVector.y = -1f;
         }
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && canMove)
         {
             moveVector.y = jumpForce;
             anim.SetTrigger("jump");
