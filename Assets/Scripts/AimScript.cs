@@ -42,7 +42,7 @@ public class AimScript : MonoBehaviour
         if (isAiming)
         {
             cameraOffset.m_Offset = Vector3.SmoothDamp(cameraOffset.m_Offset, offset, ref velocity, smoothTime);
-            player.rotation = Quaternion.Slerp(player.rotation, cam.rotation, smoothRotationTime);
+            //player.rotation = Quaternion.Slerp(player.rotation, cam.rotation, smoothRotationTime);
             MoveWhileAiming();
         }
         else

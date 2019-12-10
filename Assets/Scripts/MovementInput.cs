@@ -15,7 +15,7 @@ public class MovementInput : MonoBehaviour {
     public bool isGrounded;
     [Space]
 
-	private float InputX;
+    private float InputX;
     private float InputZ;
     private Vector3 desiredMoveDirection;
 	public bool blockRotationPlayer;
@@ -25,6 +25,8 @@ public class MovementInput : MonoBehaviour {
 	public float allowPlayerRotation = 0.1f;
     private Camera cam;
     private CharacterController controller;
+    [Space]
+    public float smoothRotationTime = 0.2f;
 
 
     [Header("Animation Smoothing")]
@@ -73,10 +75,16 @@ public class MovementInput : MonoBehaviour {
             return;
 
         InputMagnitude ();
-		
-	}
+        //transform.rotation = Quaternion.Slerp(transform.rotation, cam.transform.rotation, smoothRotationTime);
 
-	void PlayerMoveAndRotation() {
+        
+    }
+    void LateUpdate()
+    {
+       transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, cam.transform.localEulerAngles.y, transform.localEulerAngles.z);
+    }
+
+    void PlayerMoveAndRotation() {
 		InputX = Input.GetAxis ("Horizontal");
 		InputZ = Input.GetAxis ("Vertical");
 
@@ -92,10 +100,10 @@ public class MovementInput : MonoBehaviour {
 
 		desiredMoveDirection = forward * InputZ + right * InputX;
 
-		if (blockRotationPlayer == false) {
-			transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-            
-		}controller.Move(desiredMoveDirection * Time.deltaTime * velocity);
+        //if (blockRotationPlayer == false) {
+        //transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
+        //}
+        controller.Move(desiredMoveDirection * Time.deltaTime * velocity);
 	}
 
 
