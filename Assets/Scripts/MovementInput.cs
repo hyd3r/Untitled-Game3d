@@ -44,13 +44,9 @@ public class MovementInput : MonoBehaviour {
     public bool canMove;
 
 	void Start () {
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         anim = this.GetComponent<Animator> ();
 		cam = Camera.main;
 		controller = this.GetComponent<CharacterController> ();
-        
     }
 	
 	void Update () {

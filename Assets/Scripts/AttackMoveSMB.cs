@@ -7,7 +7,7 @@ public class AttackMoveSMB : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<MovementInput>().canMove = true;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MovementInput>().velocity = 9   ;
         GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().ResetTrigger("Attack");
     }
 
@@ -20,7 +20,7 @@ public class AttackMoveSMB : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<MovementInput>().canMove = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<MovementInput>().velocity = 4;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
