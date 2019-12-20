@@ -71,13 +71,9 @@ public class MovementInput : MonoBehaviour {
             return;
 
         InputMagnitude ();
-        //transform.rotation = Quaternion.Slerp(transform.rotation, cam.transform.rotation, smoothRotationTime);
+        
 
         
-    }
-    void LateUpdate()
-    {
-       transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, cam.transform.localEulerAngles.y, transform.localEulerAngles.z);
     }
 
     void PlayerMoveAndRotation() {
@@ -119,9 +115,11 @@ public class MovementInput : MonoBehaviour {
 		if (Speed > allowPlayerRotation) {
 			anim.SetFloat ("Blend", Speed, StartAnimTime, Time.deltaTime);
 			PlayerMoveAndRotation ();
-		} else if (Speed < allowPlayerRotation) {
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, cam.transform.localEulerAngles.y, 0),smoothRotationTime);
+            //transform.localEulerAngles = Vector3.Lerp(transform.localEulerAngles, new Vector3(transform.localEulerAngles.x, cam.transform.localEulerAngles.y, transform.localEulerAngles.z), smoothRotationTime);
+        }
+        else if (Speed < allowPlayerRotation) {
 			anim.SetFloat ("Blend", Speed, StopAnimTime, Time.deltaTime);
 		}
-	}
-
+    }
 }

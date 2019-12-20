@@ -14,7 +14,7 @@ public class AttackScripts : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1")&&move.isGrounded)
+        if (Input.GetButtonDown("Fire1")&&move.isGrounded&&Time.timeScale!=0)
         {
             anim.SetTrigger("Attack");
         }
